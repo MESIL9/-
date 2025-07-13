@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>가상 쓰레기통 - 확장판</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; display: flex; }
+    .sidebar { width: 200px; padding: 10px; border-right: 2px solid #ccc; }
+    .main { flex: 1; padding: 20px; }
+    .trash-items, .confused-items { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .trash-items img, .confused-items img { width: 80px; cursor: grab; }
+    .bins { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; gap: 10px; }
+    .bin { width: 130px; height: 130px; padding: 10px; background-color: #e0e0e0;
+           border: 2px solid #999; text-align: center; font-weight: bold; line-height: 100px; }
+
+    .steps { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px; gap: 10px; }
+    .step { padding: 10px 15px; background-color: #cce5ff; cursor: pointer; border-radius: 5px; }
+    .step.active { background-color: #3399ff; color: white; }
+
+    .confused-section { margin-top: 30px; }
+    #result { margin-top: 20px; font-size: 18px; font-weight: bold; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h3>[분리배출 기본 원칙]</h3>
+    <ol>
+      <li>비운다.</li>
+      <li>헹군다.</li>
+      <li>분리한다.</li>
+      <li>섞지 않는다.</li>
+    </ol>
+  </div>
+  <div class="main">
+    <h1>가상 쓰레기통</h1>
+    <p>처리 과정을 거쳐 올바른 쓰레기통에 넣어주세요!</p>
+
+    <div class="trash-items">
+      <img src="plastic_bottle.png" class="draggable" data-type="plastic" data-required="wash,remove-label,compress" draggable="true" alt="플라스틱 병">
+      <img src="banana_peel.png" class="draggable" data-type="food" data-required="" draggable="true" alt="바나나 껍질">
+      <img src="paper_cup.png" class="draggable" data-type="general" data-required="wash" draggable="true" alt="종이컵">
+      <img src="milk_pack.png" class="draggable" data-type="paper" data-required="wash,remove-label,dry" draggable="true" alt="우유팩">
+      <img src="glass_broken.png" class="draggable" data-type="general" data-required="wrap" draggable="true" alt="깨진 유리">
+      <img src="vinyl.png" class="draggable" data-type="general" data-required="" draggable="true" alt="비닐">
+      <img src="glass_bottle.png" class="draggable" data-type="glass" data-required="wash,remove-label" draggable="true" alt="유리병">
+      <img src="gochujang.png" class="draggable" data-type="general" data-required="" draggable="true" alt="고추장">
+      <img src="coffee_grinds.png" class="draggable" data-type="general" data-required="" draggable="true" alt="커피찌꺼기">
+      <img src="chicken_bone.png" class="draggable" data-type="general" data-required="" draggable="true" alt="치킨뼈">
+      <img src="receipt.png" class="draggable" data-type="general" data-required="" draggable="true" alt="영수증">
+      <img src="can.png" class="draggable" data-type="can" data-required="wash,remove-label" draggable="true" alt="캔">
+      <img src="toothbrush.png" class="draggable" data-type="general" data-required="" draggable="true" alt="칫솔">
+      <img src="plastic_pack.png" class="draggable" data-type="general" data-required="remove-label" draggable="true" alt="플라스틱 팩">
+    </div>
+
+    <div class="steps">
+      <div class="step" data-step="wash">🧼 헹구기</div>
+      <div class="step" data-step="remove-label">🔖 라벨/이물질 제거</div>
+      <div class="step" data-step="compress">📦 압축하기</div>
+      <div class="step" data-step="dry">🌬️ 건조하기</div>
+      <div class="step" data-step="wrap">📰 신문지로 감싸기</div>
+    </div>
+
+    <div class="bins">
+      <div class="bin" data-accept="plastic">플라스틱</div>
+      <div class="bin" data-accept="food">음식물</div>
+      <div class="bin" data-accept="paper">종이</div>
+      <div class="bin" data-accept="glass">유리</div>
+      <div class="bin" data-accept="can">캔</div>
+      <div class="bin" data-accept="styrofoam">스티로폼</div>
+      <div class="bin" data-accept="general">일반쓰레기</div>
+    </div>
+
+    <div class="confused-section">
+      <h2>헷갈리는 분리배출 구역</h2>
+      <h4>다 쓴 물티슈</h4>
+      <div class="confused-items">
+        <img src="wet_wipe_plasticcap.png" class="draggable" data-type="plastic" draggable="true" alt="물티슈 캡">
+        <img src="wet_wipe_sheet.png" class="draggable" data-type="general" draggable="true" alt="물티슈 시트">
+        <img src="wet_wipe_wrap.png" class="draggable" data-type="general" draggable="true" alt="물티슈 포장">
+      </div>
+
+      <h4>컵홀더</h4>
+      <div class="confused-items">
+        <img src="wet_holder.png" class="draggable" data-type="general" draggable="true" alt="젖은 컵홀더">
+        <img src="coated_holder.png" class="draggable" data-type="general" draggable="true" alt="코팅 컵홀더">
+        <img src="plain_holder.png" class="draggable" data-type="paper" draggable="true" alt="일반 컵홀더">
+      </div>
+
+      <h4>필기도구 & 의약품</h4>
+      <div class="confused-items">
+        <img src="pen.png" class="draggable" data-type="general" draggable="true" alt="볼펜">
+        <img src="sharp.png" class="draggable" data-type="general" draggable="true" alt="샤프">
+        <img src="marker.png" class="draggable" data-type="general" draggable="true" alt="매직">
+        <img src="medicine_wrapper.png" class="draggable" data-type="general" draggable="true" alt="약 포장지">
+      </div>
+    </div>
+    <p style="text-align: right;">30906 김보영 30918 신초원 </p>
+
+    <div id="result"></div>
+    <script src="script.js"></script>
+  </div>
+</body>
+</html>
